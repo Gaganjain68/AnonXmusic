@@ -72,8 +72,6 @@ async def gib_repo(client, CallbackQuery, _):
                         ),
                     ]
                 ]
-
-             
 @app.on_callback_query(
     filters.regex("settings_helper") & ~BANNED_USERS
 )

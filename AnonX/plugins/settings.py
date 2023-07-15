@@ -1,4 +1,4 @@
-from pyrogram import filters
+1from pyrogram import filters
 from pyrogram.errors import MessageNotModified
 from pyrogram.types import (
      CallbackQuery, 
@@ -63,7 +63,7 @@ async def gib_repo(client, CallbackQuery, _):
         reply_markup=InlineKeyboardMarkup(
              [InlineKeyboardButton(text="◁", callback_data=f"settingsback_helper",
              ),
-             InlineKeyboardButton(text="↻ ᴄʟᴏsᴇ ↻", callback_data=f"close"
+             InlineKeyboardButton(text="↻ ᴄʟᴏsᴇ ↻", callback_data=f"close_keyboard"
              )
         ]
      ]

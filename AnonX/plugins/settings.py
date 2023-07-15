@@ -60,11 +60,19 @@ async def settings_mar(client, message: Message, _):
 async def gib_repo(client, CallbackQuery, _):
     await CallbackQuery.edit_message_media(
         InputMediaVideo("https://te.legra.ph/file/e6471d19bd04a5095436a.mp4"),
-        reply_markup=InlineKeyboardMarkup(
-             [[InlineKeyboardButton(text="◁", callback_data=f"settingsback_helper",
-             ),
-             InlineKeyboardButton(text="↻ ᴄʟᴏsᴇ ↻", callback_data=f"close_keyboard"
-             )
+        upl = InlineKeyboardMarkup(
+                [
+                    [
+                        InlineKeyboardButton(
+                            text=_["BACK_BUTTON"], callback_data=f"settingsback_helper"
+                        ),
+                        InlineKeyboardButton(
+                            text=_["CLOSE_BUTTON"],
+                            callback_data=f"close",
+                        ),
+                    ]
+                ]
+        )
         ]
      ]
   

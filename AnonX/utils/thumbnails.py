@@ -72,7 +72,7 @@ async def gen_thumb(videoid, user_id):
             hehe = await app.get_profile_photos(app.id)
             wxy = await app.download_media(hehe[0]['file_id'], file_name=f'{app.id}.jpg')
         xy = Image.open(wxy)
-        a = Image.new('L', [540, 540], 0)
+        a = Image.new('L', [640, 640], 0)
         b = ImageDraw.Draw(a)
         b.pieslice([(0, 0), (540,540)], 0, 360, fill = 355, outline = "white")
         c = np.array(xy)

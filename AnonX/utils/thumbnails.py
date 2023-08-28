@@ -1,5 +1,4 @@
-import os
-import re
+import osimport re
 import textwrap
 
 import aiofiles
@@ -89,7 +88,7 @@ async def gen_thumb(videoid, user_id):
         enhancer = ImageEnhance.Brightness(background)
         background = enhancer.enhance(0.6)
 
-        image3 = changeImageSize(1280, 720, bg)
+        image3 = changeImageSize(1280, 720)
         image5 = image3.convert("RGBA")
         Image.alpha_composite(background, image5).save(f"cache/temp{videoid}.png")
 

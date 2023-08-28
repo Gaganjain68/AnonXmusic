@@ -82,10 +82,10 @@ async def gen_thumb(videoid, user_id):
         x = f.resize((250, 250))
 
         youtube = Image.open(f"cache/thumb{videoid}.png")
-        bg = Image.open(f"AnonX/assets/anonx.png")
+        bg = image2.filter(filter=ImageFilter.BoxBlur(10))
         image1 = changeImageSize(1280, 720, youtube)
         image2 = image1.convert("RGBA")
-        background = image2.filter(filter=ImageFilter.BoxBlur(30))
+        background = image2.filter(filter=ImageFilter.BoxBlur(10))
         enhancer = ImageEnhance.Brightness(background)
         background = enhancer.enhance(0.6)
 
@@ -100,7 +100,7 @@ async def gen_thumb(videoid, user_id):
         x2 = Xcenter + 250
         y2 = Ycenter + 250
         logo = youtube.crop((x1, y1, x2, y2))
-        logo.thumbnail((20, 20), Image.LANCZOS)
+        logo.thumbnail((10, 10), Image.LANCZOS)
         logo.save(f"cache/chop{videoid}.png")
         if not os.path.isfile(f"cache/cropped{videoid}.png"):
             im = Image.open(f"cache/chop{videoid}.png").convert("RGBA")

@@ -101,7 +101,7 @@ async def gen_thumb(videoid, user_id):
         y2 = Ycenter + 250
         logo = youtube.crop((x1, y1, x2, y2))
        
-        logo.save(f"cache/chop{videoid}.png")
+        
         if not os.path.isfile(f"cache/cropped{videoid}.png"):
             im = Image.open(f"cache/chop{videoid}.png").convert("RGBA")
             add_corners(im)

@@ -92,15 +92,6 @@ async def gen_thumb(videoid, user_id):
         image3 = changeImageSize(1280, 720, bg)
         image5 = image3.convert("RGBA")
         Image.alpha_composite(background, image5).save(f"cache/temp{videoid}.png")
-
-        Xcenter = youtube.width / 2
-        Ycenter = youtube.height / 2
-        x1 = Xcenter - 100
-        y1 = Ycenter - 100
-        x2 = Xcenter + 100
-        y2 = Ycenter + 100
-        logo = youtube.crop((x1, y1, x2, y2))
-        logo.save(f"cache/chop{videoid}.png")
         
         if not os.path.isfile(f"cache/cropped{videoid}.png"):
             im = Image.open(f"cache/chop{videoid}.png").convert("RGBA")

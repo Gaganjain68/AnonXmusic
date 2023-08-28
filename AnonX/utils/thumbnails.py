@@ -95,10 +95,10 @@ async def gen_thumb(videoid, user_id):
 
         Xcenter = youtube.width / 2
         Ycenter = youtube.height / 2
-        x1 = Xcenter - 0.3
-        y1 = Ycenter - 0.3
-        x2 = Xcenter + 0.3
-        y2 = Ycenter + 0.3
+        x1 = Xcenter - 10
+        y1 = Ycenter - 10
+        x2 = Xcenter + 10
+        y2 = Ycenter + 10
        
         logo = youtube.crop((x1, y1, x2, y2))
         logo.save(f"cache/chop{videoid}.png")

@@ -135,7 +135,7 @@ async def gen_thumb(videoid, user_id):
                 font=font,
             )
             draw.text(
-            (1040, 440),
+            (1040, 130),
             clear(unidecode(uname)),
             (255, 255, 255),
             font=arial,

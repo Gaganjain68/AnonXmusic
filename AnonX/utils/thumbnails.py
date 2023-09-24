@@ -5,7 +5,7 @@ import textwrap
 import aiofiles
 import aiohttp
 import numpy as np
-from unidecode import unidecode
+
 from PIL import Image, ImageChops, ImageDraw, ImageEnhance, ImageFilter, ImageFont
 from youtubesearchpython.__future__ import VideosSearch
 
@@ -64,8 +64,6 @@ async def gen_thumb(videoid, user_id):
                     f = await aiofiles.open(f"cache/thumb{videoid}.png", mode="wb")
                     await f.write(await resp.read())
                     await f.close()
-
-        uname, upic = await get_name_pfp(user_id)
         
         try:
             wxyz = await app.get_profile_photos(user_id)
@@ -168,12 +166,6 @@ async def gen_thumb(videoid, user_id):
             fill="white",
             font=arial,
         )
-        draw.text(
-            (1040, 140),
-            clear(unidecode(uname)),
-            (255, 255, 255),
-            font=arial,
-        )
         try:
             os.remove(f"cache/thumb{videoid}.png")
         except:
@@ -218,9 +210,6 @@ async def gen_qthumb(videoid, user_id):
                     f = await aiofiles.open(f"cache/thumb{videoid}.png", mode="wb")
                     await f.write(await resp.read())
                     await f.close()
-
-        uname, upic = await get_name_pfp(user_id)
-
         try:
             wxyz = await app.get_profile_photos(user_id)
             wxy = await app.download_media(wxyz[0]['file_id'], file_name=f'{user_id}.jpg')
@@ -235,7 +224,7 @@ async def gen_qthumb(videoid, user_id):
         d = np.array(a)
         e = np.dstack((c, d))
         f = Image.fromarray(e)
-        x = f.resize((200, 200))
+        x = f.resize((150, 150))
 
         youtube = Image.open(f"cache/thumb{videoid}.png")
         bg = Image.open(f"AnonX/assets/anonx.png")
@@ -322,12 +311,6 @@ async def gen_qthumb(videoid, user_id):
             fill="white",
             font=arial,
         )
-        draw.text(
-            (1040, 140),
-            clear(unidecode(uname)),
-            (255, 255, 255),
-            font=arial,
-            )
         try:
             os.remove(f"cache/thumb{videoid}.png")
         except:

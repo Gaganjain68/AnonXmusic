@@ -5,7 +5,7 @@ import textwrap
 import aiofiles
 import aiohttp
 import numpy as np
-
+from unidecode import unidecode
 from PIL import Image, ImageChops, ImageDraw, ImageEnhance, ImageFilter, ImageFont
 from youtubesearchpython.__future__ import VideosSearch
 
@@ -65,6 +65,9 @@ async def gen_thumb(videoid, user_id):
                     await f.write(await resp.read())
                     await f.close()
 
+        uname, upic = await get_name_pfp(user_id)
+        uimage = await cut_image(upic)
+        
         try:
             wxyz = await app.get_profile_photos(user_id)
             wxy = await app.download_media(wxyz[0]['file_id'], file_name=f'{user_id}.jpg')
@@ -113,7 +116,7 @@ async def gen_thumb(videoid, user_id):
         width = int((1280 - 400) / 14)
         background = Image.open(f"cache/temp{videoid}.png")
         background.paste(logo, (width + 2, 150), mask=logo)
-        background.paste(x, (1050, 550), mask=x)
+        background.paste(uimage, (1050, 80), mask=uimage)
         background.paste(image3, (0, 0), mask=image3)
 
         draw = ImageDraw.Draw(background)
@@ -130,6 +133,12 @@ async def gen_thumb(videoid, user_id):
                 stroke_width=3,
                 stroke_fill="grey",
                 font=font,
+            )
+            draw.text(
+            (1040, 440),
+            clear(unidecode(uname)),
+            (255, 255, 255),
+            font=arial,
             )
             draw.text(
                 (550, 316),

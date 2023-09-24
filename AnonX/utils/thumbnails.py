@@ -95,10 +95,10 @@ async def gen_thumb(videoid, user_id):
 
         Xcenter = youtube.width / 2
         Ycenter = youtube.height / 2
-        x1 = Xcenter - 30
-        y1 = Ycenter - 30
-        x2 = Xcenter + 30
-        y2 = Ycenter + 30
+        x1 = Xcenter - 250
+        y1 = Ycenter - 250
+        x2 = Xcenter + 250
+        y2 = Ycenter + 250
        
         logo = youtube.crop((x1, y1, x2, y2))
         logo.save(f"cache/chop{videoid}.png")
@@ -110,21 +110,21 @@ async def gen_thumb(videoid, user_id):
 
         crop_img = Image.open(f"cache/cropped{videoid}.png")
         logo = crop_img.convert("RGBA")
-        
-        width = int((15 - 15) / 2)
+        logo.thumbnail((400, 400), Image.LANCZOS)
+        width = int((1280 - 400) / 14)
         background = Image.open(f"cache/temp{videoid}.png")
         background.paste(logo, (width + 2, 13), mask=logo)
-        background.paste(x, (1020, 220), mask=x)
+        background.paste(x, (10500, 250), mask=x)
         
         draw = ImageDraw.Draw(background)
-        font = ImageFont.truetype("AnonX/assets/font2.ttf", 45)
+        font = ImageFont.truetype("AnonX/assets/font2.ttf", 40)
         ImageFont.truetype("AnonX/assets/font2.ttf", 70)
         arial = ImageFont.truetype("AnonX/assets/font2.ttf", 30)
         ImageFont.truetype("AnonX/assets/font.ttf", 30)
         para = textwrap.wrap(title, width=32)
         try:
             draw.text(
-                (450, 25),
+                (500, 56),
                 f"STARTED PLAYING",
                 fill="white",
                 stroke_width=3,

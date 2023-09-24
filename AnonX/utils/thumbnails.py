@@ -50,13 +50,13 @@ async def gen_thumb(videoid, user_id):
                 duration = "Unknown"
             thumbnail = result["thumbnails"][0]["url"].split("?")[0]
             try:
-                result["viewCount"]["short"]
+                views = result["viewCount"]["short"]
             except:
-                pass
+                views = "Unknown Views"
             try:
-                result["channel"]["name"]
+                channel = result["channel"]["name"]
             except:
-                pass
+                channel = "Unknown Channel"
 
         async with aiohttp.ClientSession() as session:
             async with session.get(thumbnail) as resp:
@@ -79,10 +79,10 @@ async def gen_thumb(videoid, user_id):
         d = np.array(a)
         e = np.dstack((c, d))
         f = Image.fromarray(e)
-        x = f.resize((220, 220))
+        x = f.resize((200, 200))
 
         youtube = Image.open(f"cache/thumb{videoid}.png")
-        bg = Image.open(f"AnonX/assets/anonx2.png")
+        bg = Image.open(f"AnonX/assets/anonx.png")
         image1 = changeImageSize(1280, 720, youtube)
         image2 = image1.convert("RGBA")
         background = image2.filter(filter=ImageFilter.BoxBlur(20))
@@ -99,10 +99,9 @@ async def gen_thumb(videoid, user_id):
         y1 = Ycenter - 250
         x2 = Xcenter + 250
         y2 = Ycenter + 250
-       
         logo = youtube.crop((x1, y1, x2, y2))
+        logo.thumbnail((520, 520), Image.LANCZOS)
         logo.save(f"cache/chop{videoid}.png")
-        
         if not os.path.isfile(f"cache/cropped{videoid}.png"):
             im = Image.open(f"cache/chop{videoid}.png").convert("RGBA")
             add_corners(im)
@@ -110,12 +109,13 @@ async def gen_thumb(videoid, user_id):
 
         crop_img = Image.open(f"cache/cropped{videoid}.png")
         logo = crop_img.convert("RGBA")
-        logo.thumbnail((390, 390), Image.LANCZOS)
+        logo.thumbnail((400, 400), Image.LANCZOS)
         width = int((1280 - 400) / 14)
         background = Image.open(f"cache/temp{videoid}.png")
-        background.paste(logo, (width + 3, 150), mask=logo)
+        background.paste(logo, (width + 2, 150), mask=logo)
         background.paste(x, (1050, 120), mask=x)
-        
+        background.paste(image3, (0, 0), mask=image3)
+
         draw = ImageDraw.Draw(background)
         font = ImageFont.truetype("AnonX/assets/font2.ttf", 40)
         ImageFont.truetype("AnonX/assets/font2.ttf", 70)
@@ -124,17 +124,15 @@ async def gen_thumb(videoid, user_id):
         para = textwrap.wrap(title, width=32)
         try:
             draw.text(
-                (500, 56),
-                f"STARTED PLAYING",
-                fill="white",
-                stroke_width=3,
-                stroke_fill="grey",
-                font=font,
+                (550, 316),
+            f"{channel} | {views[:23]}",
+            (255, 255, 255),
+            font=arial,
             )
             if para[0]:
                 text_w, text_h = draw.textsize(f"{para[0]}", font=font)
                 draw.text(
-                    ((1280 - text_w) / 2, 530),
+                    ((1280 - 740) / 1, 218),
                     f"{para[0]}",
                     fill="white",
                     stroke_width=1,
@@ -144,7 +142,7 @@ async def gen_thumb(videoid, user_id):
             if para[1]:
                 text_w, text_h = draw.textsize(f"{para[1]}", font=font)
                 draw.text(
-                    ((1280 - text_w) / 2, 580),
+                    ((1280 - 740) / 1, 258),
                     f"{para[1]}",
                     fill="white",
                     stroke_width=1,
@@ -155,8 +153,8 @@ async def gen_thumb(videoid, user_id):
             pass
         text_w, text_h = draw.textsize(f"Duration: {duration} Mins", font=arial)
         draw.text(
-            ((1280 - text_w) / 2, 660),
-            f"Duration: {duration} Mins",
+            ((1280 - 190) / 1, 405),
+            f"             {duration} ",
             fill="white",
             font=arial,
         )
@@ -190,13 +188,13 @@ async def gen_qthumb(videoid, user_id):
                 duration = "Unknown"
             thumbnail = result["thumbnails"][0]["url"].split("?")[0]
             try:
-                result["viewCount"]["short"]
+                views = result["viewCount"]["short"]
             except:
-                pass
+                views = "Unknown Views"
             try:
-                result["channel"]["name"]
+                channel = result["channel"]["name"]
             except:
-                pass
+                channel = "Unknown Channel"
 
         async with aiohttp.ClientSession() as session:
             async with session.get(thumbnail) as resp:
@@ -219,13 +217,13 @@ async def gen_qthumb(videoid, user_id):
         d = np.array(a)
         e = np.dstack((c, d))
         f = Image.fromarray(e)
-        x = f.resize((107, 107))
+        x = f.resize((200, 200))
 
         youtube = Image.open(f"cache/thumb{videoid}.png")
-        bg = Image.open(f"AnonX/assets/anonx2.png")
+        bg = Image.open(f"AnonX/assets/anonx.png")
         image1 = changeImageSize(1280, 720, youtube)
         image2 = image1.convert("RGBA")
-        background = image2.filter(filter=ImageFilter.BoxBlur(30))
+        background = image2.filter(filter=ImageFilter.BoxBlur(10))
         enhancer = ImageEnhance.Brightness(background)
         background = enhancer.enhance(0.6)
 
@@ -249,32 +247,30 @@ async def gen_qthumb(videoid, user_id):
 
         crop_img = Image.open(f"cache/cropped{videoid}.png")
         logo = crop_img.convert("RGBA")
-        logo.thumbnail((365, 365), Image.LANCZOS)
-        width = int((1280 - 365) / 2)
+        logo.thumbnail((400, 400), Image.LANCZOS)
+        width = int((1280 - 400) / 14)
         background = Image.open(f"cache/temp{videoid}.png")
-        background.paste(logo, (width + 2, 138), mask=logo)
-        background.paste(x, (710, 427), mask=x)
+        background.paste(logo, (width + 2, 150), mask=logo)
+        background.paste(x, (1050, 120), mask=x)
         background.paste(image3, (0, 0), mask=image3)
 
         draw = ImageDraw.Draw(background)
-        font = ImageFont.truetype("AnonX/assets/font2.ttf", 45)
+        font = ImageFont.truetype("AnonX/assets/font2.ttf", 40)
         ImageFont.truetype("AnonX/assets/font2.ttf", 70)
         arial = ImageFont.truetype("AnonX/assets/font2.ttf", 30)
         ImageFont.truetype("AnonX/assets/font.ttf", 30)
         para = textwrap.wrap(title, width=32)
         try:
             draw.text(
-                (455, 25),
-                "ADDED TO QUEUE",
-                fill="white",
-                stroke_width=5,
-                stroke_fill="black",
-                font=font,
+            (550, 326),
+            f"{channel} | {views[:23]}",
+            (255, 255, 255),
+            font=arial,
             )
             if para[0]:
                 text_w, text_h = draw.textsize(f"{para[0]}", font=font)
                 draw.text(
-                    ((1280 - text_w) / 2, 530),
+                    ((1280 - 740) / 1, 228),
                     f"{para[0]}",
                     fill="white",
                     stroke_width=1,
@@ -284,7 +280,7 @@ async def gen_qthumb(videoid, user_id):
             if para[1]:
                 text_w, text_h = draw.textsize(f"{para[1]}", font=font)
                 draw.text(
-                    ((1280 - text_w) / 2, 580),
+                    ((1280 - 740) / 1, 268),
                     f"{para[1]}",
                     fill="white",
                     stroke_width=1,
@@ -295,8 +291,8 @@ async def gen_qthumb(videoid, user_id):
             pass
         text_w, text_h = draw.textsize(f"Duration: {duration} Mins", font=arial)
         draw.text(
-            ((1280 - text_w) / 2, 660),
-            f"Duration: {duration} Mins",
+            ((1280 - 190) / 1, 400),
+            f"            {duration} ",
             fill="white",
             font=arial,
         )

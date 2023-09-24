@@ -64,6 +64,8 @@ async def gen_thumb(videoid, user_id):
                     f = await aiofiles.open(f"cache/thumb{videoid}.png", mode="wb")
                     await f.write(await resp.read())
                     await f.close()
+
+        uname, upic = await get_name_pfp(user_id)
         
         try:
             wxyz = await app.get_profile_photos(user_id)
@@ -132,12 +134,6 @@ async def gen_thumb(videoid, user_id):
                 font=font,
             )
             draw.text(
-            (1040, 440),
-            clear(unidecode(uname)),
-            (255, 255, 255),
-            font=arial,
-            )
-            draw.text(
                 (550, 316),
             f"{channel} | {views[:23]}",
             (255, 255, 255),
@@ -170,6 +166,12 @@ async def gen_thumb(videoid, user_id):
             ((1280 - 190) / 1, 405),
             f"             {duration} ",
             fill="white",
+            font=arial,
+        )
+        draw.text(
+            (1040, 140),
+            clear(unidecode(uname)),
+            (255, 255, 255),
             font=arial,
         )
         try:
@@ -265,7 +267,7 @@ async def gen_qthumb(videoid, user_id):
         width = int((1280 - 400) / 14)
         background = Image.open(f"cache/temp{videoid}.png")
         background.paste(logo, (width + 2, 150), mask=logo)
-        background.paste(x, (1050, 550), mask=x)
+        background.paste(x, (1050, 80), mask=x)
         background.paste(image3, (0, 0), mask=image3)
 
         draw = ImageDraw.Draw(background)
@@ -318,7 +320,12 @@ async def gen_qthumb(videoid, user_id):
             fill="white",
             font=arial,
         )
-
+        draw.text(
+            (1040, 140),
+            clear(unidecode(uname)),
+            (255, 255, 255),
+            font=arial,
+            )
         try:
             os.remove(f"cache/thumb{videoid}.png")
         except:

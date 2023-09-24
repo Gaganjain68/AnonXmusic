@@ -64,9 +64,6 @@ async def gen_thumb(videoid, user_id):
                     f = await aiofiles.open(f"cache/thumb{videoid}.png", mode="wb")
                     await f.write(await resp.read())
                     await f.close()
-
-        uname, upic = await get_name_pfp(user_id)
-        uimage = await cut_image(upic)
         
         try:
             wxyz = await app.get_profile_photos(user_id)
@@ -116,7 +113,7 @@ async def gen_thumb(videoid, user_id):
         width = int((1280 - 400) / 14)
         background = Image.open(f"cache/temp{videoid}.png")
         background.paste(logo, (width + 2, 150), mask=logo)
-        background.paste(uimage, (1050, 80), mask=uimage)
+        background.paste(x, (1050, 80), mask=x)
         background.paste(image3, (0, 0), mask=image3)
 
         draw = ImageDraw.Draw(background)

@@ -219,6 +219,8 @@ async def gen_qthumb(videoid, user_id):
                     await f.write(await resp.read())
                     await f.close()
 
+        uname, upic = await get_name_pfp(user_id)
+
         try:
             wxyz = await app.get_profile_photos(user_id)
             wxy = await app.download_media(wxyz[0]['file_id'], file_name=f'{user_id}.jpg')

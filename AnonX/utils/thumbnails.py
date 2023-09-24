@@ -113,7 +113,7 @@ async def gen_thumb(videoid, user_id):
         width = int((1280 - 400) / 14)
         background = Image.open(f"cache/temp{videoid}.png")
         background.paste(logo, (width + 2, 150), mask=logo)
-        background.paste(x, (1050, 120), mask=x)
+        background.paste(x, (1050, 100), mask=x)
         background.paste(image3, (0, 0), mask=image3)
 
         draw = ImageDraw.Draw(background)
@@ -123,6 +123,14 @@ async def gen_thumb(videoid, user_id):
         ImageFont.truetype("AnonX/assets/font.ttf", 30)
         para = textwrap.wrap(title, width=32)
         try:
+            draw.text(
+                (500, 56),
+                f"STARTED PLAYING",
+                fill="white",
+                stroke_width=3,
+                stroke_fill="grey",
+                font=font,
+            )
             draw.text(
                 (550, 316),
             f"{channel} | {views[:23]}",
@@ -251,7 +259,7 @@ async def gen_qthumb(videoid, user_id):
         width = int((1280 - 400) / 14)
         background = Image.open(f"cache/temp{videoid}.png")
         background.paste(logo, (width + 2, 150), mask=logo)
-        background.paste(x, (1050, 120), mask=x)
+        background.paste(x, (1050, 100), mask=x)
         background.paste(image3, (0, 0), mask=image3)
 
         draw = ImageDraw.Draw(background)
@@ -261,6 +269,14 @@ async def gen_qthumb(videoid, user_id):
         ImageFont.truetype("AnonX/assets/font.ttf", 30)
         para = textwrap.wrap(title, width=32)
         try:
+            draw.text(
+                (455, 25),
+                "ADDED TO QUEUE",
+                fill="white",
+                stroke_width=5,
+                stroke_fill="black",
+                font=font,
+            )
             draw.text(
             (550, 326),
             f"{channel} | {views[:23]}",
